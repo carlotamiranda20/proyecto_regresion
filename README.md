@@ -1,7 +1,6 @@
 En este proyecto vamos a realizar dos modelos de machine learning para un archivo dado que trata sobre el rendimiento académico de estudiantes. Para ello primero vamos a realizar un análisis exploratorio y un preprocesamiento de los datos. Luego realizaremos un modelo de regresión y otro de clasificación sobre las variables objetivo.
 
 Sabemos que las columnas que contiene el archivo son:
-
 		horas_estudio_semanal: Número de horas de estudio a la semana.
   
 		nota_anterior: Nota que obtuvo el alumno en la convocatoria anterior.
@@ -30,11 +29,8 @@ Además también tiene otras dos columnas que son las variables objetivo (sobre 
 1. ANÁLISIS EXPLORATORIO
 
   En primer lugar cargamos las librerías de Python con las que vamos a trabajar. A continución leemos y guardamos el fichero dataset_estudiantes.csv como df y hacemos un df.head() que nos muestra las 5 primeras filas para ver qué pinta tiene el archivo.
-  
 	Seguimos analizando el archivo en líneas generales, mirando el número de filas y columnas (1000 y 11 respectivamente). Con df.info() obtenemos el nombre de las distintas columnas, el tipo que son y la cantidad de no nulos que tienen.
- 
 	Además de los nulos, también miramos las filas duplicadas que en este caso no hay ninguna. Los valores nulos son 150 en horas de sueño, 100 en horas de estudio preferido y 50 en estilo de aprendizaje. A priori parece que no representan un porcentaje muy alto teniendo en cuenta que hay 1000 filas, pero más adelante vamos a ver cómo los gestionamos.
- 
 	Lo siguiente que hacemos es identificar las variables númericas y las categóricas y separarlas en dos listas diferentes, num_cols y cat_cols, y obtener sus estadísticas descriptivas.
 Comenzamos con las numéricas, sacamos las métricas generales con df.describe. 
 
@@ -44,9 +40,13 @@ Vemos que en líneas generales siguen una distribución normal (excepto aprobado
 (Considero realizar comentarios sobre aprobados y nota_final por ser las variables objetivo y no extenderme desarrollando cada gráfica.)
 
 También hacemos una matriz de correlación para ver cómo se relacionan entre sí los datos. Las correlaciones relevantes son:
+
 			-nota_final se correlaciona bastante con nota_anterior (≈ 0.79) 
+   
 			-nota final también con tasa_asistencia (≈ 0.62).
-   		-horas_estudio_semanal muestra correlación positiva moderada con nota_final.
+   
+   			-horas_estudio_semanal muestra correlación positiva moderada con nota_final.
+	 
 			-horas_sueno y edad casi no influyen en la nota.
 
 Gracias a esta representación, vemos que debido a la poca influencia que tiene horas_sueno en la nota_final y aprobado, no será necesario tratar los valores nulos, teniendo en cuenta que además solo representan un 15% del total y podemos imputarlos por el valor promedio que es 7.
