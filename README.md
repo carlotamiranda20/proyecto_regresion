@@ -51,8 +51,12 @@ También hacemos una matriz de correlación para ver cómo se relacionan entre s
 
 Gracias a esta representación, vemos que debido a la poca influencia que tiene horas_sueno en la nota_final y aprobado, no será necesario tratar los valores nulos, teniendo en cuenta que además solo representan un 15% del total y podemos imputarlos por el valor promedio que es 7.
 
-A continuación hacemos lo mismo para las categóricas con la función df.describe(). En este caso para representar en histogramas, tenemos que primero separar los valores únicos de cada variable (con df[col].unique() y luego sacar la frecuencia de cada uno con el df[col].value_counts()  df[col].unique() y df[col].value_counts(). Vemos que en nivel de dificultad predomina el medio, seguido del fácil y del difícil; en el horario de estudio preferido entre la noche y la tarde apenas se nota diferencia y son mayores que en la mañana; y en el estilo aprendizaje predomina el visual sobre los demás.
+A continuación hacemos lo mismo para las variables categóricas con la función df.describe(). En este caso para representar en histogramas, tenemos que primero separar los valores únicos de cada variable (con df[col].unique() y luego sacar la frecuencia de cada uno con el df[col].value_counts()  df[col].unique() y df[col].value_counts(). Vemos que en nivel de dificultad predomina el medio, seguido del fácil y del difícil; en el horario de estudio preferido entre la noche y la tarde apenas se nota diferencia y son mayores que en la mañana; y en el estilo aprendizaje predomina el visual sobre los demás.
 
+2- GESTIÓN DE NULOS
+Lo siguiente que vamos a hacer es gestionar los valores nulos que hay en las columnas. Primero identificamos cuántos valores nulos hay en cada columna. Vemos que solo hay en 3: horas_sueno (que es numérica), horario_estudio_preferido y estilo_aprendizaje. El número de valores nulos no representa un porcentaje muy significativos, pero vamos a imputarlos para que después no nos dé errores a la hora de hacer el modelo. En la variable horas_sueno vamos a sustituir los nulos por la mediana, y en las variables categóricas vamos a sustituir por el valor desconocido 'Unknown'.
 
+3- MODELO REGRESIÓN
+Lo primero que vamos a hacer es hacer una copia del data frame y seleccionar la variable objetivo, en este caso nota_final.
 
 
