@@ -1,3 +1,4 @@
+
 En este proyecto vamos a realizar dos modelos de machine learning para un archivo dado que trata sobre el rendimiento académico de estudiantes. Para ello primero vamos a realizar un análisis exploratorio y un preprocesamiento de los datos. Luego realizaremos un modelo de regresión y otro de clasificación sobre las variables objetivo.
 
 Sabemos que las columnas que contiene el archivo son:
@@ -56,7 +57,27 @@ A continuación hacemos lo mismo para las variables categóricas con la función
 2- GESTIÓN DE NULOS
 Lo siguiente que vamos a hacer es gestionar los valores nulos que hay en las columnas. Primero identificamos cuántos valores nulos hay en cada columna. Vemos que solo hay en 3: horas_sueno (que es numérica), horario_estudio_preferido y estilo_aprendizaje. El número de valores nulos no representa un porcentaje muy significativos, pero vamos a imputarlos para que después no nos dé errores a la hora de hacer el modelo. En la variable horas_sueno vamos a sustituir los nulos por la mediana, y en las variables categóricas vamos a sustituir por el valor desconocido 'Unknown'.
 
-3- MODELO REGRESIÓN
+3- PREPOCESAMIENTO
+
+MODELO REGRESIÓN.
+
 Lo primero que vamos a hacer es hacer una copia del data frame y seleccionar la variable objetivo, en este caso nota_final.
 
+Vamos a codificar las variables categóricas que tenemos (ya que el modelo es numérico). 
+Para ello seleccionamos las variables que nos interesan , y en este caso vamos a aplicar el método de codificación onehot, es decir que lo transforma en columnas binarias. Escogemos este ya que no tenemos muchas variables distintas dentro de cada categória (3/4) n i muchas categóricas (4).
+
+Para escribir el código utlizmos la librería sklearn y la función OneHotEncoder. Aplicamos el fit_transform sobre las columnas categóricas (onehot_cols) del dataframe df_reg, que nos devuelve una matriz binaria. Luego con onehot_encoder.get_feature_names_out() generamos los nombres de las nuevas columnas y con pd.DataFrame convertimos la matriz en un dataframe y con el mismo índice que df_reg (index=df_reg.index). Por último concatenamos con el dataframe original y eliminamos las columnas originales. Así df_reg finalmente tiene solo variables numéricas.
+Para completar todo el preproceso, a continuación hacemos un escalado de las variables con MinMaxScaler, esto sirve para evitar que valores grandes dominen sobre el resto. Escalamos todos los datos entre los valores [0,1]. Seleccionamos todas las columnas excepto el target y con scaler.fit_transform ajusta y transforma los datos en valores entre el rango [0,1]. 
+
+Finalmente guardmos el dataframe preprocesado, preparado para realizar el modelo de regresión. 
+
+
+MODELO CLASIFICACIÓN
+
+En primer lugar hacemos copia del dataframe y seleccionamos la variable objetivo, aprobado.
+Hacemos lo mismo que para el modelo de regresión (solo que ahora el dataframe es df_clas). Tenemos que codificar las variables categóricas, que son las mismas que antes. Las codificamos mediante onehot de nuevo por la misma razón. 
+
+Hacmos el escalado de nuevo, en este caso nos da igual que escale la variable objetivo, aprobados ya que es una variable binaria y el escalado la va a dejar como estaba.
+
+Guardamos el dataframe preprocesado. 
 
