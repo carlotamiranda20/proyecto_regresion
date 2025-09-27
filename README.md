@@ -54,12 +54,17 @@ Gracias a esta representación, vemos que debido a la poca influencia que tiene 
 
 A continuación hacemos lo mismo para las variables categóricas con la función df.describe(). En este caso para representar en histogramas, tenemos que primero separar los valores únicos de cada variable (con df[col].unique() y luego sacar la frecuencia de cada uno con el df[col].value_counts()  df[col].unique() y df[col].value_counts(). Vemos que en nivel de dificultad predomina el medio, seguido del fácil y del difícil; en el horario de estudio preferido entre la noche y la tarde apenas se nota diferencia y son mayores que en la mañana; y en el estilo aprendizaje predomina el visual sobre los demás.
 
-2- GESTIÓN DE NULOS
-Lo siguiente que vamos a hacer es gestionar los valores nulos que hay en las columnas. Primero identificamos cuántos valores nulos hay en cada columna. Vemos que solo hay en 3: horas_sueno (que es numérica), horario_estudio_preferido y estilo_aprendizaje. El número de valores nulos no representa un porcentaje muy significativos, pero vamos a imputarlos para que después no nos dé errores a la hora de hacer el modelo. En la variable horas_sueno vamos a sustituir los nulos por la mediana, y en las variables categóricas vamos a sustituir por el valor desconocido 'Unknown'.
+2- PREPROCESAMIENTO
 
-3- PREPOCESAMIENTO
+2.1 GESTIÓN DE NULOS
+Lo siguiente que vamos a hacer es gestionar los valores nulos que hay en las columnas. Primero identificamos cuántos valores nulos hay en cada columna. Vemos que solo hay en 3: horas_sueno (que es numérica), horario_estudio_preferido y estilo_aprendizaje. El número de valores nulos no representa un porcentaje muy significativos, pero vamos a imputarlos para que después no nos dé errores a la hora de hacer el modelo. En la variable horas_sueno vamos a sustituir los nulos por la mediana, y en las variables categóricas vamos a sustituir por la moda (el valor que más se repite).
+2.2 GESTIÓN DE OUTLIERS
+Vamos a gestionar los outliers para que no desajusten el modelo. En primer lugar mediente diagramas de caja hacemos una visualización gráfica. Construimos una subfigura con los diagramas. Escogemos los diagramas numéricos, excepto 'Aprobado' ya que es una variable binaria y no tiene sentido buscarle outliers.
+Tras representarlo vemos que las variable que los tienen son horas_estudio_semanal, tasa_asistencia y nota_final.
+Lo siguiente que hacemos es eliminarlos. Para ello hacemos una copia del dataframe y construimos un bucle que hace que solo nos quedemos con los valores que estén entre el pimer cuartil (Q1) y el tercero (Q3). 
+Guardamos el nuevo dataframe
 
-MODELO REGRESIÓN.
+2.3 CODIFICACIÓN MODELO REGRESIÓN.
 
 Lo primero que vamos a hacer es hacer una copia del data frame y seleccionar la variable objetivo, en este caso nota_final.
 
@@ -72,7 +77,7 @@ Para completar todo el preproceso, a continuación hacemos un escalado de las va
 Finalmente guardmos el dataframe preprocesado, preparado para realizar el modelo de regresión. 
 
 
-MODELO CLASIFICACIÓN
+2.4 MODELO CLASIFICACIÓN
 
 En primer lugar hacemos copia del dataframe y seleccionamos la variable objetivo, aprobado.
 Hacemos lo mismo que para el modelo de regresión (solo que ahora el dataframe es df_clas). Tenemos que codificar las variables categóricas, que son las mismas que antes. Las codificamos mediante onehot de nuevo por la misma razón. 
@@ -81,3 +86,11 @@ Hacmos el escalado de nuevo, en este caso nos da igual que escale la variable ob
 
 Guardamos el dataframe preprocesado. 
 
+3. MODELO REGRESIÓN
+
+Vamos a implementar el modelo de regresión sobre la variable nota_final. Para ello en primer lugar cargamos el dataframe después de haberle hecho el preprocesamiento.
+Definimos las variables predisctoras y el objetivo. 
+Después dividimos los datos en el entrenamiento y la prueba. Lo hacemos con un 80% entrenamiento y 20% prueba. Mostramos el tamaño para tenerlo claro. 
+A continuación hacemos el ajuste del entrenamiento, que en este caso va a ser lineal, con modelo.fit. 
+Una vez predecidos los dtos, hacemos la comparación entre los valores reales y los predichos. 
+Hacemos una representación gráfica de las prediccionesy la línea ideal, vemos que se ajustan más o menos. También calculamos los residuos y apreciamos mejor que los datos están bastante dispersos. Finalmente calculamos las métricas (el R2) para compararlos cuantitativamente, y vemos que el modelo no se ajusta demasiado (un 48%) . 
