@@ -90,7 +90,22 @@ Guardamos el dataframe preprocesado.
 
 Vamos a implementar el modelo de regresión sobre la variable nota_final. Para ello en primer lugar cargamos el dataframe después de haberle hecho el preprocesamiento.
 Definimos las variables predisctoras y el objetivo. 
-Después dividimos los datos en el entrenamiento y la prueba. Lo hacemos con un 80% entrenamiento y 20% prueba. Mostramos el tamaño para tenerlo claro. 
+Después dividimos los datos en el entrenamiento y la prueba. Es decir vamos a tener dos conjuntos de datos. y_train, x_train son los datos reales con los que vamos a entrenar el modelo, y_test, x_test con los datos que separamos para luego comparar cómo se ajusta el modelo entrenado. Lo hacemos con un 90% entrenamiento y 10% prueba. (Inicialmente había probado hacerlo con un 80-20, pero había bastante diferencia entre los datos de entrenamiento y los de prueba.)
+
 A continuación hacemos el ajuste del entrenamiento, que en este caso va a ser lineal, con modelo.fit. 
-Una vez predecidos los dtos, hacemos la comparación entre los valores reales y los predichos. 
-Hacemos una representación gráfica de las prediccionesy la línea ideal, vemos que se ajustan más o menos. También calculamos los residuos y apreciamos mejor que los datos están bastante dispersos. Finalmente calculamos las métricas (el R2) para compararlos cuantitativamente, y vemos que el modelo no se ajusta demasiado (un 48%) . 
+Una vez obtenido el modelo de estos datos de entrenamiento, aplicamos el modelo a los datos que separamos anteriormente, ese 10% que llamamos antes y_test, x_test y ahora obtenemos un nuevo conjunto de datos que son los predecidos por el modelo, y_pred, x_pred.
+
+Una vez obtenidos los datos de esta forma, hacemos la comparación entre los valores reales (y_test,x_test) y los predichos. 
+
+Hacemos una representación gráfica de las prediccionesy la línea ideal, vemos que se ajustan más o menos. También calculamos los residuos y apreciamos mejor que los datos están centrados en la línea del 0 pero los hay bastante dispersos. Finalmente calculamos las métricas (el R2) para compararlos cuantitativamente, y vemos que el modelo se ajusta un 53%. Se ajusta más de un 50% pero es un valor bastante bajo. Sin embargo vemos que los R2 del conjunto de entrenamiento y del de prueba son similares (53% y 54%), podemos decir que el modelo sí se ajusta. El R2 global no es muy elevado debido a que la estadística de datos es baja (1000 filas) por tanto al modelo le cuesta más ajustarse al haber pocos. 
+Podemos concluir que seguramente este ajuste lineal no sea el mejor para este dataset.
+Como se ha comentado antes, inicialmente con un entrenamiento de 80-20, obteníamos un R2 de entrenamiento de 48% y de la prueba un 53%, me pareció bastante diferencia además de valores muy bajitos y por eso opté por coger más datos para el entrenamiento.
+
+
+También representamos el histograma de residuos, que debe tener forma gaussiana para un buen ajuste , en este caso se ve un poco deformada.
+
+Por último se pide guardar este modelo en un fichero de tipo pkl para poder usarlo con otros conjuntos de datos. Para ello lo que hacemos es hacer el fit con todos los datos. Y por úlitmo con la biblioteca de joblib lo guardamos como modelo_regresion.plk.
+
+
+
+
