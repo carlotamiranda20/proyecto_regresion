@@ -3,17 +3,12 @@ En este proyecto vamos a realizar dos modelos de machine learning para un archiv
 
 Sabemos que las columnas que contiene el archivo son:
 		horas_estudio_semanal: Número de horas de estudio a la semana.
-  
 		nota_anterior: Nota que obtuvo el alumno en la convocatoria anterior.
-  
 		tasa_asistencia: Tasa de asistencia a clase en porcentaje.
-  
 		horas_sueno: Promedio de horas que duerme el alumno al día.
-  
 		edad: Edad del alumno.
-  
 		nivel_dificultad: Dificultad del alumno para el estudio.
-  
+
 		tiene_tutor: Indica si el alumno tiene tutor o no.
   
 		horario_estudio_preferido: Horario de estudio preferido por el alumno.
