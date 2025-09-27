@@ -3,10 +3,15 @@ En este proyecto vamos a realizar dos modelos de machine learning para un archiv
 
 Sabemos que las columnas que contiene el archivo son:
 		horas_estudio_semanal: Número de horas de estudio a la semana.
+		
 		nota_anterior: Nota que obtuvo el alumno en la convocatoria anterior.
+		
 		tasa_asistencia: Tasa de asistencia a clase en porcentaje.
+		
 		horas_sueno: Promedio de horas que duerme el alumno al día.
+		
 		edad: Edad del alumno.
+		
 		nivel_dificultad: Dificultad del alumno para el estudio.
 
 		tiene_tutor: Indica si el alumno tiene tutor o no.
@@ -119,3 +124,29 @@ También comparamos los datos train y test mediante las métricas. (Recordamos q
 Comparamos ambos y vemos que todos los parámetros salen parecidos entre ambos conjuntos de datos, y todos muy próximos a uno (de hecho recall es 1). Podemos concluir que en este caso el modelo se ha ajustado muy bien a los datos.
 
 Por último para guardar este modelo, hacemos el entrenamiento final utilizando todos los datos del dataframe, y guardamos el modelo en un archivo tipo pkl que se llama modelo_clasificacion.
+
+5. CONCLUSIONES
+
+En este proyecto hemos trabajado con un conjunto de datos sobre el que se han generado dos modelos mediante haber entrenado al programa (machine learning). 
+Para ello en primer lugar se ha realizado un análisis exploratorio al conjunto de datos para saber cómo es, su distribución y sus variables. Dichas variables las hemos dividido en numéricas y categóricas ya que reciben un tratamiento distinto. Se han representado histogramas de las variables, además de sacar sus estadísticas descriptivas cuantitativamente. También se ha construido la matriz de correlación para ver la relación entre unas y otras.
+
+A continuación se ha hecho un preprocesamiento de los datos para optimizarlos lo máximo posible y que el programa al realizar el entrenamiento se encuentre los menos problemas posibles. Comenzamos con la imputación de los valores nulos, sustituyendo por la moda las categóricas y por la mediana las numéricas. También se han gestionado los outliers, para que no influyan en el genérico del modelo. Primero se han visualizado gráficamente mediante boxplots y luego se han eliminado del set de datos.
+Seguimos con la codificación de las variables. Hacemos una codificación para cada modelo (regresión y clasificación) para así guardarlos en dos archivos distintos, pero los pasos realizados son prácticamente iguales.
+Usamos el método OneHot (codificación 0/1), ya que no hay un número elevado de categórias dentro de cada variable.
+También escalamos las variables resultantes para que estén en el rango entre 0 y 1. 
+
+Una vez obtenidos los dos conjuntos de datos preprocesados, continuamos implementando los modelos. 
+
+En primer lugar el modelo de regresión lineal sobre la varible nota_final. 
+Para el entrenamiento dividimos los datos de la forma 90% entrenamiento - 10% prueba. Una vez obtenido comparamos mediante gráficas e histogramas de residuos los datos predichos por el modelo y los reales. Vemos que no se ajustan excesivamente bien (un 53%) pero esto se puede deber a que la estadística no es muy elevada (tenemos 1000 filas de datos). De todas formas observamos que la R2 de los datos del entrenamiento (resultado de aplicar el modelo de regresión lineal sobre los datos originales) y los de la prueba (los que indican cómo de bien generaliza datos nuevos no vistos en el entrenamiento) es prácticamente idéntica, por lo que podemos concluir que el ajuste en relación con los datos que tiene es bueno, aunque globalmente sea un valor bajo.
+Por último realizamos un entrenamiento del modelo con todos los datos, y guardamos dicho modelo en un archivo modelo_regresion.pkl.
+
+A continuación realizamos el modelo de clasificación sobre la variables aprobado.
+La estructura que seguimos es similar al apartado anterior, solo que en este caso hacemos un ajuste de regresión logístico.
+El entrenamiento lo hacemos diviendo los datos en 80-20. Para comparar los datos del modelo y los reales representamos una matriz de confusión y cuantitativamente calculamos las métricas pertinentes. 
+Vemos que en este caso los valores del entrenamiento y la prueba son muy similares, y muy cerca del 1, por lo que este modelo se ajusta muy bien a los datos reales.
+De igual manera que en el anterior, finalmente entrenamos con todo el conjunto de datos y guardamos el modelo en un archivo modelo_clasificacion.pkl.
+
+
+
+
