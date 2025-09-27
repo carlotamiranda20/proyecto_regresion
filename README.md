@@ -57,8 +57,11 @@ A continuación hacemos lo mismo para las variables categóricas con la función
 2- PREPROCESAMIENTO
 
 2.1 GESTIÓN DE NULOS
+
 Lo siguiente que vamos a hacer es gestionar los valores nulos que hay en las columnas. Primero identificamos cuántos valores nulos hay en cada columna. Vemos que solo hay en 3: horas_sueno (que es numérica), horario_estudio_preferido y estilo_aprendizaje. El número de valores nulos no representa un porcentaje muy significativos, pero vamos a imputarlos para que después no nos dé errores a la hora de hacer el modelo. En la variable horas_sueno vamos a sustituir los nulos por la mediana, y en las variables categóricas vamos a sustituir por la moda (el valor que más se repite).
+
 2.2 GESTIÓN DE OUTLIERS
+
 Vamos a gestionar los outliers para que no desajusten el modelo. En primer lugar mediente diagramas de caja hacemos una visualización gráfica. Construimos una subfigura con los diagramas. Escogemos los diagramas numéricos, excepto 'Aprobado' ya que es una variable binaria y no tiene sentido buscarle outliers.
 Tras representarlo vemos que las variable que los tienen son horas_estudio_semanal, tasa_asistencia y nota_final.
 Lo siguiente que hacemos es eliminarlos. Para ello hacemos una copia del dataframe y construimos un bucle que hace que solo nos quedemos con los valores que estén entre el pimer cuartil (Q1) y el tercero (Q3). 
@@ -98,13 +101,15 @@ Una vez obtenido el modelo de estos datos de entrenamiento, aplicamos el modelo 
 Una vez obtenidos los datos de esta forma, hacemos la comparación entre los valores reales (y_test,x_test) y los predichos. 
 
 Hacemos una representación gráfica de las prediccionesy la línea ideal, vemos que se ajustan más o menos. También calculamos los residuos y apreciamos mejor que los datos están centrados en la línea del 0 pero los hay bastante dispersos. Finalmente calculamos las métricas (el R2) para compararlos cuantitativamente, y vemos que el modelo se ajusta un 53%. Se ajusta más de un 50% pero es un valor bastante bajo. Sin embargo vemos que los R2 del conjunto de entrenamiento y del de prueba son similares (53% y 54%), podemos decir que el modelo sí se ajusta. El R2 global no es muy elevado debido a que la estadística de datos es baja (1000 filas) por tanto al modelo le cuesta más ajustarse al haber pocos. 
-Podemos concluir que seguramente este ajuste lineal no sea el mejor para este dataset.
-Como se ha comentado antes, inicialmente con un entrenamiento de 80-20, obteníamos un R2 de entrenamiento de 48% y de la prueba un 53%, me pareció bastante diferencia además de valores muy bajitos y por eso opté por coger más datos para el entrenamiento.
 
+Podemos concluir que seguramente este ajuste lineal no sea el mejor para este dataset.
+
+Como se ha comentado antes, inicialmente con un entrenamiento de 80-20, obteníamos un R2 de entrenamiento de 48% y de la prueba un 53%, me pareció bastante diferencia además de valores muy bajitos y por eso opté por coger más datos para el entrenamiento.
 
 También representamos el histograma de residuos, que debe tener forma gaussiana para un buen ajuste , en este caso se ve un poco deformada.
 
 Por último se pide guardar este modelo en un fichero de tipo pkl para poder usarlo con otros conjuntos de datos. Para ello lo que hacemos es hacer el fit con todos los datos. Y por úlitmo con la biblioteca de joblib lo guardamos como modelo_regresion.plk.
+
 
 4. MODELO CLASIFICACIÓN
 
@@ -141,7 +146,7 @@ En primer lugar el modelo de regresión lineal sobre la varible nota_final.
 Para el entrenamiento dividimos los datos de la forma 90% entrenamiento - 10% prueba. Una vez obtenido comparamos mediante gráficas e histogramas de residuos los datos predichos por el modelo y los reales. Vemos que no se ajustan excesivamente bien (un 53%) pero esto se puede deber a que la estadística no es muy elevada (tenemos 1000 filas de datos). De todas formas observamos que la R2 de los datos del entrenamiento (resultado de aplicar el modelo de regresión lineal sobre los datos originales) y los de la prueba (los que indican cómo de bien generaliza datos nuevos no vistos en el entrenamiento) es prácticamente idéntica, por lo que podemos concluir que el modelo es capaz de reproducirse bien en otro set de datos, aunque no se haya ajustado demasiado bien a nuestro conjunto original.
 Por último realizamos un entrenamiento del modelo con todos los datos, y guardamos dicho modelo en un archivo modelo_regresion.pkl.
 
-A continuación realizamos el modelo de clasificación sobre la variables aprobado.
+En último lugar se ha hecho un modelo de clasificación sobre la variables aprobado.
 La estructura que seguimos es similar al apartado anterior, solo que en este caso hacemos un ajuste de regresión logístico.
 El entrenamiento lo hacemos diviendo los datos en 80-20. Para comparar los datos del modelo y los reales representamos una matriz de confusión y cuantitativamente calculamos las métricas pertinentes. 
 Vemos que en este caso los valores del entrenamiento y la prueba son muy similares, y muy cerca del 1, por lo que este modelo se ajusta muy bien a los datos reales.
