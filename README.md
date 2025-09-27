@@ -106,6 +106,21 @@ También representamos el histograma de residuos, que debe tener forma gaussiana
 
 Por último se pide guardar este modelo en un fichero de tipo pkl para poder usarlo con otros conjuntos de datos. Para ello lo que hacemos es hacer el fit con todos los datos. Y por úlitmo con la biblioteca de joblib lo guardamos como modelo_regresion.plk.
 
+4. MODELO CLASIFICACIÓN
 
+Vamos a realizar el modelo de clasificación. En primer lugar cargmaos los datos que hemos procesado antes. Y separamos la variable objetivo, aprobado, del resto de datos.
+De igual forma que en el caso anterior, separamos los datos en un 80% entrenamiento y 20% prueba
 
+En este caso hacemos un modelo de regresión logística (no lineal) con la funcion LogisticRegression(penalty=12,c=1,max_iter=200).
+Una vez obtenido el modelo, lo aplicamos a los datos de prueba (x_test), obteniendo y_pred.
 
+A continuación vamos comparar cómo se ajustan los datos del modelo a los reales. 
+
+Como se trata de un ajuste logístico y la variable objetivo es binaria, vamos a compararlo mediante una matriz de confusión. Esta matriz tiene forma 2x2, donde en las columnas encontramos la predicción negativa (0) y predición positiva (1) , y en las filas real negativa y real positiva. Se habrá hecho una buena predicción cuando la predicción y la real sean del mismo tipo, es decir en la diagonal. 
+En nuestro caso vemos que el sector mayor es el real y predicción positivas. Es mucho mayor que el de real y predicción negativas, y vemos que solo hay 8 predicciones erróneas. Sabemos que en los datos hay un número mucho mayor de aprobados que no aprobados, algo que vemos reflejado en la matriz. Por tanto viendo esta matriz podemos concluir que se ajusta bastante bien a la realidad.
+
+También comparamos los datos train y test mediante las métricas. (Recordamos que train/entrenaimento son los datos que el modelo aprendió de los reales que vió, y test es cómo el modelo generaliza en datos nuevos)  Vamos a usar en este caso accuracy (exactitud) : compara la proporción de predicciones correctas; precisión: calcula de todas las predicciones positivas, cuáles fueron correctas; recall: calcula de los casos postivos reales cuántos detectó el modelo; F1-score: media de precision y recall.
+
+Comparamos ambos y vemos que todos los parámetros salen parecidos entre ambos conjuntos de datos, y todos muy próximos a uno (de hecho recall es 1). Podemos concluir que en este caso el modelo se ha ajustado muy bien a los datos.
+
+Por último para guardar este modelo, hacemos el entrenamiento final utilizando todos los datos del dataframe, y guardamos el modelo en un archivo tipo pkl que se llama modelo_clasificacion.
